@@ -1,0 +1,42 @@
+{
+  "unobserved_confounder": "engagement: raises chat adoption (+0.5 log-odds per SD) and lowers churn (-0.3 log-odds per SD). Not in any CSV.",
+  "chat_effect_on_churn": {
+    "who": "chat adopters, in billing periods after their program's AI launch",
+    "monthly_churn_log_odds": -0.25,
+    "monthly_churn_odds_ratio": 0.779,
+    "avg_change_in_monthly_churn_prob_pp": -0.71
+  },
+  "adoption_rate_by_program": {
+    "weight": 0.419,
+    "hair": 0.334,
+    "bp": 0.503
+  },
+  "ai_launch_dates": {
+    "weight": "2024-04-01",
+    "hair": "2024-10-01",
+    "bp": "2025-03-01"
+  },
+  "ai_induced_demand_multiplier": 1.3,
+  "ai_handoff_handle_time_multiplier": 0.9,
+  "escalation_confidence_threshold": 0.5,
+  "experiment": {
+    "id": "ai-model-v2",
+    "window": [
+      "2025-08-01",
+      "2025-11-01 (exclusive)"
+    ],
+    "v2_confidence_lift": 0.05,
+    "calibration_gap": {
+      "v1_nonclinical": 0.05,
+      "v1_clinical": 0.05,
+      "v2_nonclinical": 0.02,
+      "v2_clinical": 0.12
+    },
+    "expected_finding": "v2 resolves more logistics questions, but is overconfident on clinical ones and escalates symptom concerns less: a safety guardrail failure."
+  },
+  "data_quality_issues": [
+    "~0.5% of conversation rows are exact duplicates (same conversation_id)",
+    "escalation_type is blank for escalated conversations from 2025-05-12 to 2025-05-22 (exclusive)",
+    "csat is on a 2-10 scale from 2024-11-01 to 2024-11-15 (exclusive)"
+  ]
+}

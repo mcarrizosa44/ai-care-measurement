@@ -19,3 +19,17 @@ How I'm using Claude on this project, what I verified myself, and what it got wr
 
 **What Claude got wrong:**
 - _(fill in as I find things)_
+
+## 2026-10-02: Generator extended to cover the job description
+
+**Asked Claude to:** cover everything the Staff Analyst, AI role expects.
+
+**What it produced:** an extended generator (subscriptions and churn, staggered launch, support tickets with handle time, QA reviews, an A/B test, injected data bugs, an answer key) and `ROADMAP.md` mapping each JD bullet to a module.
+
+**What Claude got wrong:**
+- Its first docstring said the naive comparison makes chat users "look worse". Running the data showed the opposite: chat users cancel less (25% vs 40%), mostly because longer-tenured and more engaged patients have more chances to chat. It fixed the docstring. **Lesson:** check the direction of a bias against the data, not just the story.
+- Its code produced NumPy deprecation warnings on Python 3.14. Fixed.
+
+**To verify myself:**
+- [ ] Is a 0.25 log-odds churn effect realistic, or too big? Why might it be?
+- [ ] Is it realistic that adopters send *all* their contacts to chat? (No. Think about what this simplification hides.)
