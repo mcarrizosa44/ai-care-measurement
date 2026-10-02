@@ -3,3 +3,5 @@
 __pycache__/
 node_modules/
 .venv/
+# Generated data: rebuild with `python src/generate_data.py` (seeded, so identical every time)
+data/raw/*.csv

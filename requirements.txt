@@ -1,0 +1,6 @@
+dbt-duckdb==1.11.0
+lifelines==0.30.3
+numpy==2.5.3
+pandas==2.3.3
+pyfixest==0.60.0
+statsmodels==0.15.0
