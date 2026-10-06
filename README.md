@@ -4,7 +4,10 @@ Measuring whether an AI care chat actually helps telehealth patients, and separa
 
 ## The question
 
-<!-- One or two sentences: what decision does this analysis inform? e.g. "Does using the AI chat improve resolution and retention, or do chat users just differ from non-users?" -->
+Is the AI care chat working, and should we ship the new model? Specifically:
+does chat use improve resolution and retention, or do chat users just differ
+from non-users? And does model v2 improve outcomes without compromising
+clinical safety?
 
 ## Why it's hard
 
@@ -36,11 +39,36 @@ See [ROADMAP.md](ROADMAP.md) for the analyses, mapped to the role.
 
 ## Methods
 
-<!-- e.g. naive comparison → regression adjustment → fixed effects (pyfixest) → survival (lifelines) → RD at the escalation threshold -->
+Because the true effects are built into the data, every method is checked
+against the answer key, so I can show which approaches recover the truth
+and which don't.
+
+| Notebook | Question | Method | Status |
+|---|---|---|---|
+| [`00_explore_data`](notebooks/00_explore_data.ipynb) | Does the data behave as designed? | Sanity checks; naive comparison | ✅ |
+| [`01_ab_test`](notebooks/01_ab_test.ipynb) | Should we ship model v2? | SRM check, patient-clustered SEs, guardrails, calibration from QA reviews | ✅ |
+| `02_did_staggered` | Did the AI launch reduce churn? | Difference-in-differences across staggered launches; event study | Planned |
 
 ## Results
 
-<!-- Headline finding, with uncertainty, in plain language. -->
+**A/B test (model v1 vs v2): v2 wins on resolution but shouldn't ship as is.**
+
+- Resolution improved 2.1 pts (95% CI 0.6–3.7), driven by logistics questions,
+  where v2 is more accurate (77% → 91%) and well calibrated.
+- Escalation on symptom concerns fell 4.3 pts (CI −8.8 to +0.3). Not
+  significant, but the guardrail was underpowered, and the CI includes a large
+  drop in clinical handoffs.
+- **Bigger finding:** both models are ~15 pts overconfident on clinical
+  questions, and escalation is triggered by confidence. So clinical
+  conversations are under-escalated in production today, not just under v2.
+
+**Recommendation:** ship v2 for logistics intents only; recalibrate clinical
+confidence or set per-intent escalation thresholds; replace 5% random QA with
+stratified sampling that oversamples clinical chats.
+
+**Naive comparison (for contrast):** chat users cancelled at 24.6% vs. 39.9%
+for non-users. That 15-pt gap is mostly self-selection and immortal-time bias;
+the causal analyses (in progress) estimate the true effect.
 
 ## How to run
 
